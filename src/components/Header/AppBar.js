@@ -232,7 +232,7 @@ const PrimarySearchAppBar = ({siteTitle}) => {
             {siteTitle}
           </Typography>
           <div className={classes.grow} />
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -244,7 +244,7 @@ const PrimarySearchAppBar = ({siteTitle}) => {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+          </div> */}
           <div className={classes.sectionDesktop}>
             <ProfileInfo menuId = {menuId} handleProfileMenuOpen = {handleProfileMenuOpen}/>
           </div>
