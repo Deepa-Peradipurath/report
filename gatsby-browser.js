@@ -4,4 +4,9 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-// You can delete this file if you're not using it
+//css
+import("./src/styles/index.scss")
+exports.onClientEntry = () => {
+    console.log("onClientEntry.....")
+    window.onload = () => { console.log("window.onload.....") }
+  }
