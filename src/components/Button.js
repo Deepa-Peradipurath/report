@@ -18,17 +18,11 @@ const TYPE_COLOR_MAP = {
     default: grey
     //success: green
 }
-// const TYPE_COLOR_MAP = {
-//     primary: green,
-//     secondary : white,
-//     default: white
-// }
 
 export default function CustomizedButton({ type, text }) {
+    
     const classes = useStyles();
-
     const theme = React.useMemo(() => {
-        console.log(type)
         return createMuiTheme({
             palette: {
                 primary: TYPE_COLOR_MAP[type]

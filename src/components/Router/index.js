@@ -1,24 +1,35 @@
-import React , {Fragment} from "react";
-import { Router } from "@reach/router";
+import React , {Fragment} from "react"
+import { Router } from "@reach/router"
+import { useDispatch ,useSelector } from "react-redux"
 
-import Home from "../Home/index";
-import Notification from "../Notification/index";
+import Home from "../Home/index"
+import Manage from "../Manage/index"
+import actions from "../../store/actions"
 
 const AppRouter = () => {
-    console.log("Proxy Router launched......");
+    console.log("Router launched......");
+    const data = useSelector(state => state.notification);
+    const appId = data ? data.selectedApp.appId : null;
+    console.log(appId);
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(actions.getSelectedApp());
+    },[dispatch]);
+
     function Display({ label }) {
         console.log("Display");
         return <div>{label}Hi</div>;
-      }
+    }
     return (
         <Fragment>
             <Router>
                 <Home path="/app"/>
-                <Notification path="/app/notification" >
-                <Display path="/app/notification/Templates" label="Manage Templates" />
-                <Display path="/app/notification/Reports" label="Manage Reports" />
-                <Display path="/app" label="Manage Notifications" />
-                </Notification>
+                <Manage path={`/app/id:${appId}/*`} >
+                    <Display path={`/app/id:${appId}/templates`} label="Manage Templates" />
+                    <Display path={`/app/id:${appId}/reports`} label="Manage Reports" />
+                    <Display path={`/app/id:${appId}/notifications`} label="Manage Notifications" />
+                </Manage>
             </Router>
         </Fragment>
         

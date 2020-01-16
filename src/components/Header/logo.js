@@ -1,6 +1,8 @@
-import React from "react";
-import PepsicoLogo from '../../images/pepsico-logo-black-and-white.png';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react"
+import { Link } from "gatsby"
+import PepsicoLogo from '../../images/pepsico-logo-black-and-white.png'
+import { makeStyles } from '@material-ui/core/styles'
+
 
 const useStyles = makeStyles(theme => ({
     logo: {
@@ -12,7 +14,9 @@ const useStyles = makeStyles(theme => ({
 const Logo = () => {
     const classes = useStyles();
     return (
-            <img className={classes.logo} data-test="logo" alt="Logo" src={PepsicoLogo}></img> 
+        <Link to={`/app`}>
+            <img className={classes.logo} data-test="logo" alt="Logo" src={PepsicoLogo}></img>
+        </Link> 
     )
     
 }

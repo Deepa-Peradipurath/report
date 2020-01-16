@@ -1,8 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import Breadcrumbs from '@material-ui/core/Breadcrumbs'
+import Link from '@material-ui/core/Link'
+import { navigate } from "@reach/router"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -10,13 +11,14 @@ const useStyles = makeStyles(theme => ({
       },
 
       eleWrapper: {
-          margin:'1% auto',
+          margin:'1% auto 0',
       }
     }));
 
 function handleClick(event) {
   event.preventDefault();
   console.info('You clicked a breadcrumb.');
+  navigate(`/app`)
 }
 
 export default function BreadCrumbs() {

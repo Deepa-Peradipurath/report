@@ -57,7 +57,7 @@ function Display({ label }) {
     </div>;
   }
 
-export default function SimpleTabs() {
+export default function SimpleTabs({ appId }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -90,14 +90,14 @@ export default function SimpleTabs() {
                 console.log(value);
             }}
             >
-            <Tab label="Manage Notifications" index={0} component={NavLink} to="/app/notification" />
-            <Tab label="Manage Templates" index={1} component={NavLink} to="/app/notification/Templates" />
-            <Tab label="Manage Report" index={2} component={NavLink} to="/app/notification/Reports" />
+            <Tab label="Manage Notifications" index={0} component={NavLink} to={`./notifications`} />
+            <Tab label="Manage Templates" index={1} component={NavLink} to={`/app/id:${appId}/templates`} />
+            <Tab label="Manage Report" index={2} component={NavLink} to={`/app/id:${appId}/reports`} />
         </Tabs>
         <Router>
-            <Display path="/Templates" label="Manage Templates" />
-            <Display path="/Reports" label="Manage Reports" />
-            <Display path="/" label="Manage Notifications" />
+            <Display path="/templates" label="Manage Templates" />
+            <Display path="/reports" label="Manage Reports" />
+            <Display path="/notifications" label="Manage Notifications" />
         </Router>
             
       </Fragment>  
