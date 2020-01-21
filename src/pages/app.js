@@ -16,11 +16,6 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore( rootReducer ,applyMiddleware( sagaMiddleware ));
 sagaMiddleware.run(rootSaga);
 
-const useStyles = makeStyles(theme => ({
-    page: {
-        width: '100%',
-      }
-  }));
 const theme = createMuiTheme({
   palette: {
      primary: {
@@ -31,7 +26,6 @@ const theme = createMuiTheme({
      secondary: {
        main: '#4FB218',
      },
-     contrastThreshold: 3,
      common :{
          white :'#fff'
      },
@@ -40,16 +34,22 @@ const theme = createMuiTheme({
      },
      text: {
         primary: "#000000",
-        secondary: "#ffffff"
+        secondary: "#ffffff",
+        variant1 :"#45B6FA" // blue
     },
     background: {
-        default: "#fff",
+        default: "#ffffff"
         }
   },
   typography: { 
      useNextVariants: true
   }
 });
+const useStyles = makeStyles(theme => ({
+    page: {
+        width: '100%',
+      }
+  }));
 
 const App = () => {
     const classes = useStyles();

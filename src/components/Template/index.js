@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import actions from "../../store/actions"
 // import CustomButton from "../Button";
 // import DropDown from "../dropDown";
-import StickyHeadTable from "../table";
+import StickyHeadTable from "../table/index";
 import SwitchesSize from "../switch";
 import CopyPayload from "../CopyPayload";
 import CreateTemplateForm from "../CreateTemplate";

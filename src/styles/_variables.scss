@@ -17,18 +17,5 @@ $bg-color-variant2 : #ECF3F7;
 
 $breakpoint-lt600: 'only screen and (max-width: 600px)';
 
-:export {
-    white : $white ;
-    themePrimaryColor : $theme-primary-color;
-    themeSecondaryColor : $theme-secondary-color;
-    tableHeaderColor : $table-header-color;
-    tableHoverColor : $table-hover-color;
-    paginationBGColor : $pagination-bg-color;
-    tabHoverBorderColor :$tab-hover-border-color;
-    siteTitleColor : $site-title-color;
-    buttonPrimary : $button-primary;
-    buttonSecondary : $button-secondary;
-
-}
 
 

@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PersonIcon from '@material-ui/icons/Person';
 import actions from "../../store/actions"
-import  StickyHeadTable from "../table";
+import  StickyHeadTable from "../table/index";
 import Filter from '../Filter/index';
 
 const Report = () => {

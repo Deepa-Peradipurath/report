@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../../store/actions"
-import StickyHeadTable from "../table";
+import StickyHeadTable from "../table/index";
 import SwitchesSize from "../switch";
 import EditIcon from '@material-ui/icons/EditOutlined';
 import { makeStyles } from '@material-ui/core/styles';

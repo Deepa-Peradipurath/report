@@ -2,7 +2,6 @@ import React from 'react';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {grey,green} from '@material-ui/core/colors';
-import variables from '../styles/_variables.scss';
 
 const useStyles = makeStyles(theme => ({
     primaryBtn: {

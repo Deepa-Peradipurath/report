@@ -1,13 +1,10 @@
 import React , {Fragment} from "react"
 import { Router } from "@reach/router"
 import { useDispatch ,useSelector } from "react-redux"
-
 import Home from "../Home/index"
 import Manage from "../Manage/index"
-//import OnBoradingForm from "../OnBoardingForm/index"
 import OnBoradingForm from "../OnBoardForm/index"
 import actions from "../../store/actions"
-//import Notifications from "../notifications/index"
 
 const AppRouter = () => {
     console.log("Router launched......");

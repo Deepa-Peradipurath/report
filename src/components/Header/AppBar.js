@@ -11,7 +11,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 //custom
 import Logo from './logo';
 import ProfileInfo from './profileInfo';
-import variables from '../../styles/_variables.scss'
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -24,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
-      color: variables.siteTitleColor,
+      color: theme.palette.text.variant1,
       fontSize: "1.2rem",
       borderLeft:"1px gray solid",
       paddingLeft:"15px"

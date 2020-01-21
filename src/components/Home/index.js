@@ -1,11 +1,3 @@
-// import React from "react";
-
-// const Home = ()=>{
-//     return(
-//         <h1>Home</h1>
-//     )
-// }
-// export default Home
 import React , {Fragment } from "react"
 import { Link } from "gatsby"
 import { navigate } from "@reach/router"

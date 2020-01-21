@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import './InlineFormTextBox.scss';
+import './inlineFormTextBox.scss';
 
 const InlineFormTextBox = ({
     label ,textbox ,dropdown  
