@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const api_url = process.env.API_URL;
+//const api_url = process.env.API_URL;
+const api_url = 'https://portalfast.ite.mypepsico.com/rest/notificationadmin/api/v1';
 
 export const getAllApplication = () => {
     const fetchDataURL = `${api_url}/getAllApplication`;
