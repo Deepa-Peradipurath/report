@@ -4,7 +4,10 @@ import { useDispatch ,useSelector } from "react-redux"
 
 import Home from "../Home/index"
 import Manage from "../Manage/index"
+//import OnBoradingForm from "../OnBoardingForm/index"
+import OnBoradingForm from "../OnBoardForm/index"
 import actions from "../../store/actions"
+//import Notifications from "../notifications/index"
 
 const AppRouter = () => {
     console.log("Router launched......");
@@ -25,11 +28,13 @@ const AppRouter = () => {
         <Fragment>
             <Router>
                 <Home path="/app"/>
-                <Manage path={`/app/id:${appId}/*`} >
+                <Manage path={`/app/id:${appId}/*`} />
+                <OnBoradingForm path="/app/onboardingform"/>
+                {/* <Manage path={`/app/id:${appId}/*`} >
                     <Display path={`/app/id:${appId}/templates`} label="Manage Templates" />
                     <Display path={`/app/id:${appId}/reports`} label="Manage Reports" />
                     <Display path={`/app/id:${appId}/notifications`} label="Manage Notifications" />
-                </Manage>
+                </Manage> */}
             </Router>
         </Fragment>
         

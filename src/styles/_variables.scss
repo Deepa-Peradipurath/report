@@ -1,0 +1,34 @@
+$white :#fff;
+$theme-primary-color :#233B58;
+$theme-secondary-color :#4FB218;
+$site-title-color :#45B6FA;
+$button-primary :#4FB218;
+$button-secondary :$white;
+$table-header-color:#3993CE;
+$tab-header-color:#3993CE;
+$table-hover-color :#ECF3F7;
+$input-border-color :#E9EBEE;
+$base-icon-color :#3993CE;
+$pagination-bg-color :#DEF0FB; 
+$text-HightLight-color :#3993CE;
+$tab-hover-border-color :#FF7136;
+
+$bg-color-variant2 : #ECF3F7;
+
+$breakpoint-lt600: 'only screen and (max-width: 600px)';
+
+:export {
+    white : $white ;
+    themePrimaryColor : $theme-primary-color;
+    themeSecondaryColor : $theme-secondary-color;
+    tableHeaderColor : $table-header-color;
+    tableHoverColor : $table-hover-color;
+    paginationBGColor : $pagination-bg-color;
+    tabHoverBorderColor :$tab-hover-border-color;
+    siteTitleColor : $site-title-color;
+    buttonPrimary : $button-primary;
+    buttonSecondary : $button-secondary;
+
+}
+
+

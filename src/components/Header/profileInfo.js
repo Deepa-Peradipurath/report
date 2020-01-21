@@ -13,13 +13,9 @@ const useStyles = makeStyles(theme => ({
     removeGap: {
         padding: '0'
       } ,
-    setColor:  {
-        color: '#fff'
-    },
     welcomeTxt :{
-        color:"gray",
-        fontSize:"0.8rem"
-        
+        fontSize:"0.667rem !important",
+        color:theme.palette.textPrimary,  
     }
 }));
 
@@ -45,17 +41,24 @@ const ProfileInfo = (props) => {
                 aria-haspopup="true"
                 onClick={props.handleProfileMenuOpen}
                 color="inherit"
-                className={classes.welcomeTxt}
-                primary="Welcome"
+                primary={
+                    <React.Fragment>
+                        <Typography
+                            component="span"
+                            color="textSecondary"
+                            className={classes.welcomeTxt}
+                        >
+                        <span>Welcome</span>
+                    </Typography>
+                    </React.Fragment>
+                }
                 secondary={
                     <React.Fragment>
-                    <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                    >
-                        <span className={classes.setColor}>John Smith Taylor</span>
+                        <Typography
+                            component="span"
+                            color="textSecondary"
+                        >
+                        <span>John Smith Taylor</span>
                     </Typography>
                     </React.Fragment>
                 }

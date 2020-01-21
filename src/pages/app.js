@@ -25,12 +25,26 @@ const theme = createMuiTheme({
   palette: {
      primary: {
         light: '#fff',
-        main: 'rgb(15, 54, 84)',
+        main: '#233B58',
         dark: '#000'
      },
      secondary: {
-       main: '#f44336',
+       main: '#4FB218',
      },
+     contrastThreshold: 3,
+     common :{
+         white :'#fff'
+     },
+     button :{
+        white :'#fff'
+     },
+     text: {
+        primary: "#000000",
+        secondary: "#ffffff"
+    },
+    background: {
+        default: "#fff",
+        }
   },
   typography: { 
      useNextVariants: true

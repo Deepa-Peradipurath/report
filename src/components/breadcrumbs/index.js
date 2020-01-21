@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
       },
 
       eleWrapper: {
-          margin:'1% auto 0',
+          margin:'1% auto 0',  
       }
     }));
 
@@ -21,16 +21,16 @@ function handleClick(event) {
   navigate(`/app`)
 }
 
-export default function BreadCrumbs() {
+export default function BreadCrumbs({ appName }) {
     const classes = useStyles();
   return (
    <div className ={classes.eleWrapper}> 
-        <Breadcrumbs aria-label="breadcrumb">
-        <Link color="inherit" href="/" onClick={handleClick}>
+        <Breadcrumbs aria-label="breadcrumb" color="textPrimary">
+        <Link  href="/" onClick={ handleClick }>
             Home
         </Link>
-        <Link color="inherit" href="/getting-started/installation/" onClick={handleClick}>
-            My-Pepsico-NexGen
+        <Link  href="/" onClick={ handleClick }>
+            { appName }
         </Link>
         <Typography color="textPrimary">Manage Notifications</Typography>
         </Breadcrumbs>

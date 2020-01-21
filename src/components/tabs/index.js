@@ -7,6 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Router,Link } from "@reach/router"
 
+import Notifications from "../Notifications/index"
+import Reports from "../Reports/index"
+import Templates from "../Template/index"
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -40,22 +44,26 @@ TabPanel.propTypes = {
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "transparent"
-    
+    backgroundColor: "transparent",
+    '&:hover': {
+      color: '#000',
+      opacity: 1,
+    },
+    '&$selected': {
+      color: '#000',
+    },
+    '&:focus': {
+      color: '#000',
+    },
+  },
+  indicator: {
+    backgroundColor: 'red',
   },
   tabBar:{
-    borderBottom:"#bdbcbc solid 1px"
+    borderBottom:"#bdbcbc solid 1px",
+    marginBottom:"15px"
   }
 }));
-function Display({ label }) {
-    return <div style={{
-      backgroundColor: `white`,
-      padding: `10px`,
-      minHeight:`500px`
-    }}>
-    {label}
-    </div>;
-  }
 
 export default function SimpleTabs({ appId }) {
   const classes = useStyles();
@@ -83,7 +91,7 @@ export default function SimpleTabs({ appId }) {
     <div className={classes.root}>
     <div position="static">
     <Fragment>
-        <Tabs
+        <Tabs className ={classes.tabBar}
             value={value}
             onChange={(e, val) => {
                 setValue(val);
@@ -95,9 +103,9 @@ export default function SimpleTabs({ appId }) {
             <Tab label="Manage Report" index={2} component={NavLink} to={`/app/id:${appId}/reports`} />
         </Tabs>
         <Router>
-            <Display path="/templates" label="Manage Templates" />
-            <Display path="/reports" label="Manage Reports" />
-            <Display path="/notifications" label="Manage Notifications" />
+            <Templates path="/templates"/>
+            <Reports path="/reports" />
+            <Notifications path="/notifications" />
         </Router>
             
       </Fragment>  

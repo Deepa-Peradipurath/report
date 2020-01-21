@@ -1,38 +1,64 @@
 import React from 'react';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { green,grey} from '@material-ui/core/colors';
+import {grey,green} from '@material-ui/core/colors';
+import variables from '../styles/_variables.scss';
 
 const useStyles = makeStyles(theme => ({
-    buttonSyle: {
+    primaryBtn: {
         margin: theme.spacing(1),
         color: grey[50],
         height: '44px',
-        textTransform: "capitalize"
+        textTransform: "capitalize",
+        marginRight :'0'
+    },
+    secondaryBtn: {
+        margin: theme.spacing(1),
+        color: grey,
+        height: '44px',
+        textTransform: "capitalize",
+        marginRight :'0',
+        border: 'grey solid 1px',
+        backgroundColor:theme.palette.button.white,
+        '&:hover':{
+            backgroundColor : grey[200],
+        }
     }
 }));
 
+// const TYPE_COLOR_MAP = {
+//     primary: green,
+//     secondary : grey,
+//     default: grey
+// }
+                //primary: TYPE_COLOR_MAP[type]
 const TYPE_COLOR_MAP = {
+    //primary: variables.buttonPrimary,
     primary: green,
-    secondary : grey,
-    default: grey
-    //success: green
+    secondary : grey[50]
 }
 
-export default function CustomizedButton({ type, text }) {
+export default function CustomizedButton({ type, text, action }) {
     
     const classes = useStyles();
     const theme = React.useMemo(() => {
         return createMuiTheme({
             palette: {
                 primary: TYPE_COLOR_MAP[type]
+                // primary: {
+                //     main: TYPE_COLOR_MAP[type]
+                //  }
             }
         });
     }, [type])
 
     return (
         <ThemeProvider theme={theme}>
-            <Button variant="contained" color="primary" className={classes.buttonSyle}>
+            <Button 
+                variant="contained" 
+                color="primary" 
+                className={type =='primary'? classes.primaryBtn : classes.secondaryBtn} 
+                onClick = {action} disableElevation>
                 {text}
             </Button>
         </ThemeProvider>
