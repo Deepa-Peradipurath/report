@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PersonIcon from '@material-ui/icons/Person';
 import actions from "../../store/actions"
@@ -14,7 +14,28 @@ const Report = () => {
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] = useState(2);
   const [channel, setChannel] = useState({});
+  const [dateCount, setDateCount] = useState(0);
 
+  const data = useSelector(state => state.notification);
+  const reportData = !!data
+    ? data.allReport
+      ? data.allReport.notifications
+      : []
+    : [];
+    const totalCount = !!data
+    ? data.allReport
+      ? data.allReport.count
+      : 0
+    : 0;
+    const appId = !!data
+    ? data.selectedApp
+      ? data.selectedApp.appId
+      : 0
+    : 0;
+    const channelList = !!data
+    ? data.channelList
+      ? data.channelList.notificationChannels
+      : "" :""
 
   const columns = [
     { id: "type", label: "Notification Type", minWidth: 180 },
@@ -66,7 +87,7 @@ const Report = () => {
 
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     setChannel(channelList)
 
     dispatch(
@@ -74,55 +95,36 @@ const Report = () => {
         notificationName:search,
         channelId:filter,
         appId:appId,
-        dateRange:100,
+        dateRange:dateCount,
         start: start,
         pageSize: pageSize
       })
     );
-  }, [search, filter, start, page, pageSize, channelList]);
+  }, [search, filter, start, page, pageSize, channelList,dateCount]);
 
-  const inputChange = e => {
-    setPage(0);
-    setStart(0) 
-    setSearch(e.target.value);
-  };
-  const inputSubmit = e => {
-    e.preventDefault();
-    dispatch(
-      actions.getAllReports({ 
-        notificationName:search,
-        channelId:filter,
-        appId:appId,
-        dateRange:100,
-        start: 1,
-        pagesize: pageSize
-      })
-    );
-  };
+  // const inputChange = e => {
+  //   setPage(0);
+  //   setStart(0) 
+  //   setSearch(e.target.value);
+  // };
+  // const inputSubmit = e => {
+  //   e.preventDefault();
+  //   dispatch(
+  //     actions.getAllReports({ 
+  //       notificationName:search,
+  //       channelId:filter,
+  //       appId:appId,
+  //       dateRange:100,
+  //       start: 1,
+  //       pagesize: pageSize
+  //     })
+  //   );
+  // };
 
-  const data = useSelector(state => state.notification);
-  const reportData = !!data
-    ? data.allReport
-      ? data.allReport.notifications
-      : []
-    : [];
-    const totalCount = !!data
-    ? data.allReport
-      ? data.allReport.count
-      : 0
-    : 0;
-    const appId = !!data
-    ? data.selectedApp
-      ? data.selectedApp.appId
-      : 0
-    : 0;
-    const channelList = !!data
-    ? data.channelList
-      ? data.channelList.notificationChannels
-      : "" :""
+ 
   return (
     <div className="template">
-    <Filter dropDownLabel ='Channel' channel = {channel} textBoxLabel = 'Notification Type' DateRangeLabel ='Date Range'  filter = {filter} setFilter = {setFilter} search = {search} setSearch ={setSearch} start = {start} setStart = {setStart} setPage ={setPage}/>
+    <Filter dropDownLabel ='Channel' channel = {channel} textBoxLabel = 'Notification Type' DateRangeLabel ='Date Range'  filter = {filter} setFilter = {setFilter} search = {search} setSearch ={setSearch} start = {start} setStart = {setStart} setPage ={setPage} setDateCount = {setDateCount}/>
     <StickyHeadTable
           type="reports"
           tableData={reportData}

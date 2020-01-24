@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import actions  from "../../store/actions";
+import { useDispatch , useSelector} from "react-redux";
+import actions from "../../store/actions";
 import FormHeader from "../FormHeader/index";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,22 +8,39 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import CustomButton from "../Button";
-import FormTextBox from '../formTextBox';
+import FormTextBox from "../formTextBox";
+import Label from '../label'
 import "./CreateNotification.scss";
 
-const CreateNotificationForm = ({ setShowEdit, tag, editInfo }) => {
-  const [edit, setEdit] = useState("");
+// const Label = ({ label }) => {
+//   return <Fragment>{label} <span className = "required-sign">*</span></Fragment>;
+// };
+const CreateNotificationForm = ({
+  setShowEdit,
+  tag,
+  editInfo,
+  appId,
+  categoryList
+}) => {
+  //const [edit, setEdit] = useState("");
   const [dropdown, setDropdown] = useState("");
   const [description, setDescription] = useState("");
   const [ntType, setNtType] = useState("");
-  const[typeId,setTypeId] = useState("");
+  const [typeId, setTypeId] = useState("");
+  const [sucessFlag, setSuccessFlag] = useState("");
+
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.notification);
+  const postSuccess = !!data ? data.apiSuccessFlag : "";
   useEffect(() => {
-    setEdit(editInfo);
+    //setEdit(editInfo);
     setDropdown(editInfo.categoryId);
     setDescription(editInfo.description);
     setNtType(editInfo.type);
-    setTypeId(editInfo.typeId)
-  }, [editInfo]);
+    setTypeId(editInfo.typeId);
+    setSuccessFlag(postSuccess);
+    dispatch(actions.addBreadCrumb({label:`${tag === "edit" ? "Edit Notification" : "Create Notification"}`}));
+  }, [editInfo,postSuccess]);
 
   const changeID = event => {
     setDropdown(event.target.value);
@@ -34,7 +51,6 @@ const CreateNotificationForm = ({ setShowEdit, tag, editInfo }) => {
   const changeDescription = event => {
     setDescription(event.target.value);
   };
-  const dispatch = useDispatch();
 
   const createNotification = () => {
     dispatch(
@@ -42,8 +58,7 @@ const CreateNotificationForm = ({ setShowEdit, tag, editInfo }) => {
         name: ntType,
         description: description,
         categoryId: 100,
-        appId: 2111
-
+        appId: appId
       })
     );
   };
@@ -53,169 +68,103 @@ const CreateNotificationForm = ({ setShowEdit, tag, editInfo }) => {
         name: ntType,
         description: description,
         categoryId: 100,
-        typeId:typeId,
-        appId: 2111
-
+        typeId: typeId,
+        appId: appId
       })
     );
   };
 
   return (
     <div className="create-notification-form-container">
-      <Grid container item xs={12} >
+      <Grid container item xs={12}>
         <FormHeader
           title={tag === "edit" ? "Edit Notification" : "Create Notification"}
           icon={tag === "edit" ? "edit" : "file"}
           setShowCopy={setShowEdit}
+          flag = {sucessFlag}
         />
-        <Grid container item xs={12} className="category-container">
+        <Grid container item xs={12} className={sucessFlag ?"category-container inactive-container" : "category-container"}>
           <Grid item xs={4} md={1}>
-            <div className="category-Label">Category</div>
+            <div className="category-Label"><Label label = "Category"></Label></div>
           </Grid>
-          <Grid item xs={8} md={2}>
-              <FormControl
-                size="small"
-                variant="outlined"
-                className="drop-down-wrapper"
-              >
+          <Grid item xs={8} md={2} >
+            <FormControl
+              size="small"
+              variant="outlined"
+              className="drop-down-wrapper"
+              onSubmit = {createNotification}
+            >
               <Select
                 labelId="demo-simple-select-outlined-label"
                 className="drop-down-content"
                 value={dropdown || ""}
                 onChange={changeID}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="Announcements">Announcements</MenuItem>
+                {categoryList &&
+                  categoryList.map((value, index) => {
+                    return <MenuItem value={value.id}>{value.name}</MenuItem>;
+                  })}
+
+                {/* <MenuItem value="Announcements">Announcements</MenuItem>
                 <MenuItem value="Tasks">Tasks</MenuItem>
                 <MenuItem value={101}>Subscription</MenuItem>
-                <MenuItem value={100}>Others</MenuItem>
+                <MenuItem value={100}>Others</MenuItem> */}
               </Select>
             </FormControl>
           </Grid>
         </Grid>
-        <Grid container item xs={12} className="type-container">
-          <Grid item xs={12} md={6} >
-            <FormTextBox label ="Notification Type" helperTxt ="0 to 100 Characters"  />
+        <Grid container item xs={12} className={sucessFlag ?"type-container inactive-container":"type-container"} >
+          <Grid item xs={12} md={6}>
+            <FormTextBox
+              label={<Label label = "Notification Type"/>}
+              helperTxt="0 to 100 Characters"
+            />
             <TextField
+              required
               size="small"
               variant="outlined"
               className="type-input-field"
               value={ntType}
               onChange={changeType}
-              required = {true}
             />
           </Grid>
         </Grid>
-        <Grid container item xs={12} className="desc-container">
-          <Grid item xs={12}  >
-            <FormTextBox label ="Description" helperTxt ="0 to 300 Characters"  />
+        <Grid container item xs={12} className={sucessFlag ?"inactive-container desc-container":"desc-container"}>
+          <Grid item xs={12}>
+            <FormTextBox
+              label={<Label label="Description" />}
+              helperTxt="0 to 300 Characters"
+              onSubmit={createNotification}
+            />
             <TextField
               size="small"
               variant="outlined"
               className="desc-input-field"
               multiline={true}
-              onChange = {changeDescription}
+              onChange={changeDescription}
               rows={9}
               value={description}
+              required
             ></TextField>
           </Grid>
           <Grid container item xs={12}>
-            <CustomButton text="Cancel" type="secondary" action = {() =>{setShowEdit(false)}}/>
             <CustomButton
-                  text="Submit"
-                  type="primary"
-                  action={tag === "create" ? createNotification : editNotification}
-                />
+              text="Cancel"
+              type="secondary"
+              action={() => {
+                setShowEdit(false);
+                dispatch(actions.toggleHeader(true));
+              }}
+            />
+            <CustomButton
+              text="Submit"
+              type="primary"
+              action={tag === "create" ? createNotification : editNotification}
+            />
           </Grid>
         </Grid>
-        
       </Grid>
     </div>
-    // <div className="create-notification-form-container">
-    //   <FormHeader
-    //     title={tag === "edit" ? "Edit Notification" : "Create Notification"}
-    //     icon={tag === "edit" ? "edit" : "file"}
-    //     setShowCopy={setShowEdit}
-    //   />
-    //   <Grid container>
-    //     <Grid container item xs={12} className="category-container">
-    //       <Grid item xs={1}>
-    //         <div className="category-content">Category</div>
-    //       </Grid>
-    //       <Grid item xs={2}>
-    //         <FormControl
-    //           variant="outlined"
-    //           margin="dense"
-    //           className="category-drop-down"
-    //         >
-    //           <Select
-    //             labelId="demo-simple-select-outlined-label"
-    //             id="demo-simple-select-outlined"
-    //             className="drop-down-content"
-    //             value={dropdown || ""}
-    //             onChange={changeID}
-    //           >
-    //             <MenuItem value="">
-    //               <em>None</em>
-    //             </MenuItem>
-    //             <MenuItem value="Announcements">Announcements</MenuItem>
-    //             <MenuItem value="Tasks">Tasks</MenuItem>
-    //             <MenuItem value={101}>Subscription</MenuItem>
-    //             <MenuItem value={100}>Others</MenuItem>
-    //           </Select>
-    //         </FormControl>
-    //       </Grid>
-    //     </Grid>
-    //     <Grid container item xs={12} className="type-container">
-    //       <div className="type-content-div">
-    //         <div className="content">Notification Type</div>
-    //         <div className="content-helper ">0 out of 100 characters</div>
-    //       </div>
-    //       <Grid item xs={12}>
-    //         <TextField
-    //           id="outlined-basic"
-    //           variant="outlined"
-    //           className="type-input-field"
-    //           value={ntType}
-    //           onChange={changeType}
-    //           required = {true}
-    //         />
-    //       </Grid>
-    //     </Grid>
-    //     <Grid container item xs={12} className="desc-container">
-    //       <div className="desc-content-div">
-    //         <div className="content">Description</div>
-    //         <div className="content-helper">0 out of 300 characters</div>
-    //       </div>
-
-    //       <Grid item xs={12}>
-    //         <TextField
-    //           id="outlined-basic"
-    //           variant="outlined"
-    //           className="desc-input-field"
-    //           multiline={true}
-    //           onChange = {changeDescription}
-    //           rows={9}
-    //           value={description}
-    //         ></TextField>
-    //       </Grid>
-    //     </Grid>
-    //     <Grid container item xs={12} spacing={3}>
-    //       <Grid item xs={12}>
-    //         <div className="create-notification-action-container">
-    //           <CustomButton text="Cancel" type="secondary" action = {() =>{setShowEdit(false)}}/>
-    //           <CustomButton
-    //             text="Submit"
-    //             type="primary"
-    //             action={tag === "create" ? createNotification : editNotification}
-    //           />
-    //         </div>
-    //       </Grid>
-    //     </Grid>
-    //   </Grid>
-    // </div>
   );
 };
 

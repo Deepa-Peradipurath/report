@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {grey,green} from '@material-ui/core/colors';
+import {grey, green} from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
     primaryBtn: {
@@ -30,10 +30,8 @@ const useStyles = makeStyles(theme => ({
 //     secondary : grey,
 //     default: grey
 // }
-                //primary: TYPE_COLOR_MAP[type]
 const TYPE_COLOR_MAP = {
-    //primary: variables.buttonPrimary,
-    primary: green,
+    primary: green[500],
     secondary : grey[50]
 }
 
@@ -43,10 +41,10 @@ export default function CustomizedButton({ type, text, action }) {
     const theme = React.useMemo(() => {
         return createMuiTheme({
             palette: {
-                primary: TYPE_COLOR_MAP[type]
-                // primary: {
-                //     main: TYPE_COLOR_MAP[type]
-                //  }
+                //primary: TYPE_COLOR_MAP[type]
+                primary: {
+                    main: TYPE_COLOR_MAP[type]
+                 }
             }
         });
     }, [type])
@@ -56,7 +54,7 @@ export default function CustomizedButton({ type, text, action }) {
             <Button 
                 variant="contained" 
                 color="primary" 
-                className={type =='primary'? classes.primaryBtn : classes.secondaryBtn} 
+                className={type ==='primary'? classes.primaryBtn : classes.secondaryBtn} 
                 onClick = {action} disableElevation>
                 {text}
             </Button>

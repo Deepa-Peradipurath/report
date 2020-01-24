@@ -5,13 +5,14 @@ import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    //display: 'flex',
+    display: 'flex',
+    justifyContent:'center',
     textAlign:'center',
-    height :'500px',
-    marginTop:"20%",
+    height :'20vh',
+    marginTop:"10%",
     '& > * + *': {
       //marginLeft: theme.spacing(2),
-    },
+    }
   },
 }));
 
@@ -32,8 +33,8 @@ export default function CircularDeterminate() {
   }, []);
 
   return (
-    <Container maxWidth="sm"  className={classes.root}>
-        <CircularProgress variant="determinate" value={progress} color="primary" />
+    <Container maxWidth="lg"  className={classes.root}>
+        <CircularProgress variant="determinate" value={progress}/>
     </Container>
   );
 }

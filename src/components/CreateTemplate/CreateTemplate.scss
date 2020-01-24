@@ -24,12 +24,17 @@
             border-radius: 4px;
             padding-top: 17px;
         }
+       
         // .template-drop-down-content {
         //     //font-size: 14px;
         //     //font-weight: 400;
         //     //background: #FFFFFF 0% 0% no-repeat padding-box;
         //     //color: #3993CE;
         // }
+    }
+    .inactive-container {
+        opacity: .4;
+        pointer-events: none; 
     }
     .template-name-container {
         padding-top: 30px;

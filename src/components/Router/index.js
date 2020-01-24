@@ -17,10 +17,10 @@ const AppRouter = () => {
         dispatch(actions.getSelectedApp());
     },[dispatch]);
 
-    function Display({ label }) {
-        console.log("Display");
-        return <div>{label}Hi</div>;
-    }
+    // function Display({ label }) {
+    //     console.log("Display");
+    //     return <div>{label}Hi</div>;
+    // }
     return (
         <Fragment>
             <Router>

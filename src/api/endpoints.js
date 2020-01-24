@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//const api_url = process.env.API_URL;
-const api_url = 'https://portalfast.ite.mypepsico.com/rest/notificationadmin/api/v1';
+const api_url = process.env.API_URL;
+//const api_url = 'https://portalfast.ite.mypepsico.com/rest/notificationadmin/api/v1'; for netflify deployment only
 
 export const getAllApplication = () => {
     const fetchDataURL = `${api_url}/getAllApplication`;
@@ -76,12 +76,36 @@ export const samplePayloadData = data => {
     };
     return axios.get(postURL, headers);
   };
+  export const categoryListAPI = data => {
+    
+    const postURL = `${api_url}/getAllCategories`
+    const headers = {
+      "content-type": "application/json"
+    };
+    return axios.get(postURL, headers);
+  };
   export const notificationListAPI = data => {
     
-    const postURL = `${api_url}/getAllNotificationType`
+    const postURL = `${api_url}/getAllNotificationType?appId=${data.payload}`
+    const headers = {
+      "content-type": "application/json"
+    };
+    return axios.get(postURL, headers);
+  };
+  export const getTemplateDetailAPI = data => {
+    const postURL = `${api_url}/getNotificationTemplate?templateId=${data.payload.tempID}&appId=${data.payload.appId}`
     const headers = {
       "content-type": "application/json"
     };
     return axios.get(postURL, headers);
   };
   
+  export const updateTemplateAPI = data => {
+  
+    const postURL = `${api_url}${data.payload.tag === "edit" ?  '/editTemplates' : '/addTemplates'}`
+    const headers = {
+      "content-type": "application/json"
+    };
+    const body = data.payload.info;
+    return axios.post(postURL, body, headers);
+  };

@@ -8,8 +8,13 @@ import Select from "@material-ui/core/Select";
 import './inlineFormTextBox.scss';
 
 const InlineFormTextBox = ({
-    label ,textbox ,dropdown  
+    label ,textbox ,dropdown ,listData, selectedData, setData
 }) => {
+    // const [selected, setSelected] = useState("");
+
+    const handleChange = (event) =>{
+        setData(event.target.value)
+    }
 
     return(
         <List  className = 'inlineTextBox'>
@@ -19,17 +24,18 @@ const InlineFormTextBox = ({
             <ListItem className ='listItemRight'>
             {
                 dropdown
-                &&
+                ?
                 <FormControl variant="outlined" size="small" className="dropDown">
-                    <Select className="template-drop-down-content">
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Email</MenuItem>
-                        <MenuItem value={20}>SMS</MenuItem>
-                        <MenuItem value={30}>Push Notification</MenuItem>
+                    <Select className="template-drop-down-content" value = {selectedData} onChange = {handleChange}>
+                    {listData && listData.map((value, index) => {
+                        return (<MenuItem value={value.id}>{value.name}</MenuItem>)
+
+                    })}
                     </Select>
-                </FormControl>
+                </FormControl> 
+                :
+                <label className="label-name">: {selectedData}</label>
+
             }
 
             {

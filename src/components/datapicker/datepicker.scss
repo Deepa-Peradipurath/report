@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+.customDatePicker{
+    background-color: $white;
+    height: 44px;
+    border: #E9EBEE solid 1px !important;
+    box-shadow: 0px 1px 3px #0000000D;
+    border-radius: 4px;
+    
+}
+.react-datepicker-popper{
+    z-index: 10000;
+}

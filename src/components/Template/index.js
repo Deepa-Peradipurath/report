@@ -9,26 +9,12 @@ import CopyPayload from "../CopyPayload";
 import CreateTemplateForm from "../CreateTemplate";
 import EditIcon from '@material-ui/icons/EditOutlined';
 import ShowPayloadIcon from '@material-ui/icons/InsertDriveFile';
-import { makeStyles } from '@material-ui/core/styles';
+//import { makeStyles } from '@material-ui/core/styles';
 import Filter from '../Filter/index'
+
 
 const Template = () => {
   
-  const useStyles = makeStyles(theme => ({
-    inlineList: {
-      display: 'inline-flex',
-      flexDirection: 'row',
-      padding: 0
-      },
-      customForm : {
-        marginBottom : '0px'
-      }
-      // '&:li': {
-      //   width :"100px"
-      // },
-      
-  }));
-
   const [filter, setFilter] = useState(-1);
   const [search, setSearch] = useState("");
   const [start, setStart] = useState(1);
@@ -38,9 +24,8 @@ const Template = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [tag, setTag] = useState("");
   const [channel, setChannel] = useState({});
-
-
-
+  const [notificationListData, setNotificationListData] = useState({});
+  const [editInfo, setEditInfo] = useState({});
   const [tempID, setTempID] = useState("");
 
   const columns = [
@@ -84,27 +69,62 @@ const Template = () => {
       align: "right"
     }
   ];
+  const data = useSelector(state => state.notification);
+  const templateData = !!data
+    ? data.tempData
+      ? data.tempData.records
+      : ""
+    : "";
+  const totalCount = !!data
+    ? data.tempData
+      ? data.tempData.count
+      : 0
+    : 0;
+    const appId = !!data
+    ? data.selectedApp
+      ? data.selectedApp.appId
+      : ""
+    : "";
+   const channelList = !!data
+    ? data.channelList
+      ? data.channelList.notificationChannels
+      : "" :""
+      const notificationList = !!data
+      ? data.notificationList
+        ? data.notificationList.notificationTypes
+        : "" :""
   const dispatch = useDispatch();
 
   const showPayload = tempID => {
     setTempID(tempID);
+    dispatch(actions.toggleHeader(false));
     dispatch(actions.getSamplePayload(tempID));
     setShowCopy(true);
   };
-  const editTemplate = tempID => {
+  const editTemplate = (tempID,type, channel, name, notID, channelID) => {
+    dispatch(actions.toggleHeader(false));
+
     setShowEdit(true);
     setTag("edit");
+    const info = {"tempID":tempID, "type":type, "channel":channel, "name":name, "notID": notID, "channelId":channelID }
+    setEditInfo(info)
+    dispatch(actions.getTemplateDetail({tempID:tempID,appId:appId}));
+
   };
   const createTemplate = () =>{
+    dispatch(actions.toggleHeader(false));
       setShowEdit(true);
       setTag("create");
+      setEditInfo({})
+      dispatch(actions.clearTemplateDetail());
+
     }
   
-  const createData = (type, channel, name, newDate, status, tempID) => {
+  const createData = (type, channel, name, newDate, status, tempID, notID, channelID) => {
     const edit = (
       <EditIcon
         onClick={() => {
-          editTemplate(tempID);
+          editTemplate(tempID,type, channel, name, notID, channelID);
         }}
       />
     );
@@ -134,6 +154,7 @@ const Template = () => {
 
   React.useEffect(() => {
     setChannel(channelList)
+    setNotificationListData(notificationList)
     dispatch(
       actions.getAllNotTempData({
         info: {
@@ -148,108 +169,12 @@ const Template = () => {
     );
   }, [search, filter, start, pageSize, page,channelList]);
 
-  const inputChange = e => {
-    setPage(0);
-    setStart(0);
-    setSearch(e.target.value);
-  };
-  const inputSubmit = e => {
-    e.preventDefault();
-    dispatch(
-      actions.getAllNotTempData({
-        info: {
-          name: search,
-          channelId: filter,
-          startNum: start,
-          pageSize: pageSize,
-          appId: appId
-        },
-        tab: "template"
-      })
-    );
-  };
 
-  const data = useSelector(state => state.notification);
-  const templateData = !!data
-    ? data.tempData
-      ? data.tempData.records
-      : ""
-    : "";
-  const totalCount = !!data
-    ? data.tempData
-      ? data.tempData.count
-      : 0
-    : 0;
-    const appId = !!data
-    ? data.selectedApp
-      ? data.selectedApp.appId
-      : 0
-    : 0;
-   const channelList = !!data
-    ? data.channelList
-      ? data.channelList.notificationChannels
-      : "" :""
   return (
     <div className="template">
       {!showCopy && !showEdit && (
         <Fragment>
           <Filter dropDownLabel ='Channel' channel = {channel} textBoxLabel = 'Template Name' ButtonLabel ='Create Template' createAction = {createTemplate} filter = {filter} setFilter = {setFilter} search = {search} setSearch ={setSearch} start = {start} setStart= {setStart} setPage = {setPage}/>
-          {/* <div className="template-container">
-            <Grid container spacing={3}>
-            <Grid item xs={12} md={9}>
-              <form className={classes.customForm} onSubmit={inputSubmit}>
-              <Grid container spacing={0}>
-                <Grid item xs={12} md={4}>
-                  <List  className = {classes.inlineList}>
-                    <ListItem className ={ classes.inLineListItem}>
-                      <label className="label-name">Channel</label>
-                    </ListItem>
-                    <ListItem>
-                    <DropDown
-                      title="Channel"
-                      fields={categoryFields}
-                      setFilter={setFilter}
-                      inputSubmit={inputSubmit}
-                      section="template"
-                    />
-                    </ListItem>
-                  </List> 
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <List className = {classes.inlineList}>
-                      <ListItem className ={ classes.inLineListItem}>
-                        <label className="label-name">Template Name</label>
-                      </ListItem>
-                      <ListItem>
-                      <TextField
-                          id="outlined-size-small"
-                          defaultValue="Small"
-                          variant="outlined"
-                          size="small" placeholder="Temlate name"
-                          value={search}
-                          onChange={inputChange}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                <SearchIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          />
-                      </ListItem>
-                    </List>
-                </Grid>
-              </Grid>
-              </form>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <CustomButton type="primary" text="Create Template" action={() => {
-                    setShowEdit(true);
-                    setTag("create");
-                  }}/> 
-            </Grid>
-          </Grid> 
-          </div> */}
           <div className="table">
             <StickyHeadTable
               type="template"
@@ -268,7 +193,7 @@ const Template = () => {
         </Fragment>
       )}
       {showCopy && <CopyPayload tempID={tempID} setShowCopy={setShowCopy} />}
-      {showEdit && <CreateTemplateForm setShowCopy={setShowEdit} tag={tag} />}
+      {showEdit && <CreateTemplateForm setShowCopy={setShowEdit} tag={tag} editInfo = {editInfo} channelList = {channelList} notificationListData = {notificationListData} appId = {appId}/>}
     </div>
   );
 };

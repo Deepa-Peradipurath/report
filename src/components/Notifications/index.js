@@ -10,7 +10,6 @@ import CreateNotificationForm from "../CreateNotification";
 
 
 const Notification = () => {
-  // const categoryFields = ["All", "Announcements", "Tasks", "Subscription"];
   const [filter, setFilter] = useState(-1);
   const [search, setSearch] = useState("");
   const [start, setStart] = useState(1);
@@ -22,21 +21,30 @@ const Notification = () => {
   const [channel, setChannel] = useState({});
 
 
-  const useStyles = makeStyles(theme => ({
-    inlineList: {
-      display: 'inline-flex',
-      flexDirection: 'row',
-      padding: 0
-      },
-    customForm : {
-      marginBottom : '0px'
-    }
-  
-      // '&:li': {
-      //   width :"100px"
-      // },
-      
-  }));
+  const data = useSelector(state => state.notification);
+  const notificationData = !!data
+    ? data.notData
+      ? data.notData.records
+      : ""
+    : "";
+  const totalCount = !!data
+    ? data.notData
+      ? data.notData.count
+      : 0
+    : 0;
+    const appId = !!data
+    ? data.selectedApp
+      ? data.selectedApp.appId
+      : 0
+    : 0;
+    const channelList = !!data
+    ? data.channelList
+      ? data.channelList.notificationChannels
+      : "" :""
+      const categoryList = !!data
+      ? data.categoryList
+        ? data.categoryList.notificationCategories
+        : "" :""
 
   const columns = [
     { id: "type", label: "Notification Type", minWidth: 250 },
@@ -77,6 +85,7 @@ const Notification = () => {
     categoryId,
     typeId
   ) => {
+    dispatch(actions.toggleHeader(false));
     setShowEdit(true);
     setTag("edit");
     const info = {
@@ -89,6 +98,7 @@ const Notification = () => {
     setEditInfo(info);
   };
   const createNotification =() => {
+    dispatch(actions.toggleHeader(false));
     setShowEdit(true);
     setTag("create");
     setEditInfo({});
@@ -126,7 +136,7 @@ const Notification = () => {
       },"tab":"notification"})
     );
   };
-  React.useEffect(() => {
+  useEffect(() => {
     setChannel(channelList)
     console.log(" Notifications disaptch.....");
     dispatch(
@@ -140,49 +150,11 @@ const Notification = () => {
       );
   }, [search, filter, start, page, pageSize]);
 
-  const inputChange = e => {
-    setPage(0);
-    setStart(0)   
-     setSearch(e.target.value);
-  };
-  const inputSubmit = e => {
-    e.preventDefault();
-    dispatch(
-        actions.getAllNotTempData({"info":{
-          name: search,
-          categoryId: filter,
-          appId: appId,
-          startNum: start,
-          pageSize: pageSize
-        },"tab":"notification"})
-      );
-  };
-
-  const data = useSelector(state => state.notification);
-  const notificationData = !!data
-    ? data.notData
-      ? data.notData.records
-      : ""
-    : "";
-  const totalCount = !!data
-    ? data.notData
-      ? data.notData.count
-      : 0
-    : 0;
-    const appId = !!data
-    ? data.selectedApp
-      ? data.selectedApp.appId
-      : 0
-    : 0;
-    const channelList = !!data
-    ? data.channelList
-      ? data.channelList.notificationChannels
-      : "" :""
   return (
     <div className="template">
        {!showEdit && (
         <Fragment>
-        <Filter dropDownLabel ='Category' textBoxLabel = 'Notification Type' ButtonLabel ='Create Notification' createAction = {createNotification}filter = {filter} setFilter = {setFilter} search = {search} setSearch ={setSearch} start = {start} setStart = {setStart} setPage ={setPage}/>
+        <Filter dropDownLabel ='Category' category = {categoryList} textBoxLabel = 'Notification Type' ButtonLabel ='Create Notification' createAction = {createNotification}filter = {filter} setFilter = {setFilter} search = {search} setSearch ={setSearch} start = {start} setStart = {setStart} setPage ={setPage}/>
         <StickyHeadTable
           type="notification"
           tableData={notificationData}
@@ -203,6 +175,8 @@ const Notification = () => {
           setShowEdit={setShowEdit}
           tag={tag}
           editInfo={editInfo}
+          appId = {appId}
+          categoryList = {categoryList}
         />
       )}
     </div>

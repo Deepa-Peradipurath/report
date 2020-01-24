@@ -5,9 +5,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import MenuIcon from '@material-ui/icons/Menu';
+//import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Menu from './menuDrawer';
 //custom
 import Logo from './logo';
 import ProfileInfo from './profileInfo';
@@ -213,14 +214,15 @@ const PrimarySearchAppBar = ({siteTitle}) => {
   return(
     <AppBar position="static" className={classes.AppBar} data-test='AppBar'>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
+          <Menu/>
           <Logo/>
           <Typography className={classes.title}  variant="h6" noWrap>
             {siteTitle}

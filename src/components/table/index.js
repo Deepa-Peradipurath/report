@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, Fragment} from "react";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import Loader from "../Loader"
 import './table.scss';
 
 const StickyHeadTable = ({
@@ -65,7 +66,7 @@ const StickyHeadTable = ({
                 value.CATEGORYID,
                 value.DESCRIPTION
               )
-            );
+            ); return null;
           });
         }
       }
@@ -78,9 +79,11 @@ const StickyHeadTable = ({
                 value.TEMPLATENAME,
                 value.UPDATEDATE,
                 value.STATUS,
-                value.TEMPLATEID
+                value.TEMPLATEID,
+                value.NOTIFICATIONID,
+                value.CHANNELID
               )
-            );
+            );return null;
           });
         }
         else if (type === "reports") {
@@ -94,7 +97,7 @@ const StickyHeadTable = ({
                     value.sentdate,
                     value.count
                   )
-                );
+                );return null;
                 
               });
         }
@@ -110,7 +113,6 @@ const StickyHeadTable = ({
               <TableRow className='tableRow'>
                 {columns.map((column,index) => (
                   <TableCell
-                  key = {index}
                     className='stickyHeader'
                     key={column.id}
                     align={column.align}
@@ -121,7 +123,7 @@ const StickyHeadTable = ({
                 ))}
               </TableRow>
             </TableHead>
-            <TableBody>
+            {(rowsData.length > 0 )? <TableBody>
               {rowsData
                 // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row,index) => {
@@ -154,7 +156,7 @@ const StickyHeadTable = ({
                     </TableRow>
                   );
                 })}
-            </TableBody>
+            </TableBody> :<TableBody><TableRow><TableCell height='230' align='center' colSpan={Object.keys(columns).length}>{ count === 0 ? <div>No data Found</div> :<Loader/> }</TableCell></TableRow></TableBody>}
           </Table>
         </TableContainer>
         {/* {!! totalCount ?  */}

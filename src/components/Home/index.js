@@ -31,19 +31,23 @@ const Home = () => {
     const data = useSelector(state => state.notification);
     console.log(`Home : data loads...`);
     console.log(data)
-const navItems = data.allApplications.length > 0 ? data.allApplications : [];
-const arrayCheck =  Array.isArray(navItems); 
-const dispatch = useDispatch();
-React.useEffect(() => {
-    dispatch(actions.getAllApplication());
-},[dispatch]);
+    const navItems = data.allApplications.length > 0 ? data.allApplications : [];
+    const arrayCheck =  Array.isArray(navItems); 
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        dispatch(actions.getAllApplication());
+    },[dispatch]);
 
-const appSection = (value) => {
+const appSelection = (value) => {
     console.log("App Selection :");
     console.log(value);
     dispatch(actions.setSelectedApp(value))
+    // dispatch(actions.listValues(value.appId))
     dispatch(actions.getChannelList(value.appId))
     dispatch(actions.getNotificationList(value.appId))
+    dispatch(actions.getCategoryList(value.appId))
+
+
 }
 
 if (navItems.length > 0) {
@@ -59,7 +63,7 @@ if (navItems.length > 0) {
                     { data && navItems && arrayCheck && navItems.length && navItems.map((value,i) => (
                         <Grid xs={12} md={4} key={i} item>
                             <Link to={`/app/id:${value.appId}/notifications`} onClick={() => {
-                                        appSection(value);
+                                        appSelection(value);
                                     }}>
                                 <Paper className={classes.paper}>
                                     <AppCard cardInfo={value}></AppCard>

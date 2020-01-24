@@ -18,6 +18,11 @@
         padding :30px;
         background: #ECF3F7 0% 0% no-repeat padding-box;
     }
+    .inactive-container{
+        opacity: .4;
+        pointer-events: none; 
+
+    }
     .drop-down-content {
         font-size: 14px;
         font-weight: 400;
@@ -37,4 +42,7 @@
             margin-bottom: 30px;
         }
     }
+}
+.required-sign {
+color :red;
 }

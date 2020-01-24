@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
         textAlign:'center',
         lineHeight:'15px' ,
         marginBottom:'35px',
-        padding:'20px 0 0'  
+        padding:'20px 0 0',
+        textDecoration :'none'  
       },
       
       header:{

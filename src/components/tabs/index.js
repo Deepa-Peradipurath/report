@@ -1,4 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment ,useEffect } from 'react';
+import { useSelector ,useDispatch } from "react-redux"
+
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -10,6 +12,7 @@ import { Router,Link } from "@reach/router"
 import Notifications from "../Notifications/index"
 import Reports from "../Reports/index"
 import Templates from "../Template/index"
+import actions from "../../store/actions"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -72,9 +75,18 @@ export default function SimpleTabs({ appId }) {
 //   const handleChange = (event, newValue) => {
 //     setValue(newValue);
 //   };
+  const data = useSelector(state => state.notification);
+  const showTabView = data ? data.showTab : true;
+  const dispatch = useDispatch();
+  // useEffect(()=>{
+  //   dispatch(actions.removeAllBreadCrumbs());
+  //   dispatch(actions.addBreadCrumb({label :"Manage Notification",path :`/app/id:${appId}/notifications`}));
+  // },[dispatch]);
+
   const handleTabChange = index => {
     setValue(index);
-  };
+   
+  }
   const NavLink = React.forwardRef((props, ref) => (
     <Link
       {...props}
@@ -87,21 +99,46 @@ export default function SimpleTabs({ appId }) {
       }}
     />
   )); 
+  const handleTabClick = (label,path)=> {
+    console.log("TAB CLICK ******")  ;
+    console.log(label);
+    console.log(path);
+     dispatch(actions.removeAllBreadCrumbs());
+     dispatch(actions.addBreadCrumb({label :label,path :path}));
+  }
   return (
     <div className={classes.root}>
     <div position="static">
     <Fragment>
-        <Tabs className ={classes.tabBar}
+        {showTabView &&<Tabs className ={classes.tabBar}
             value={value}
             onChange={(e, val) => {
                 setValue(val);
                 console.log(value);
             }}
             >
-            <Tab label="Manage Notifications" index={0} component={NavLink} to={`./notifications`} />
-            <Tab label="Manage Templates" index={1} component={NavLink} to={`/app/id:${appId}/templates`} />
-            <Tab label="Manage Report" index={2} component={NavLink} to={`/app/id:${appId}/reports`} />
-        </Tabs>
+            <Tab 
+              label="Manage Notifications" 
+              index={0} 
+              component={NavLink} 
+              to={`./notifications`} 
+              onClick = {() => {handleTabClick('Manage Notifications',`./notifications`)}}
+            />
+            <Tab 
+              label="Manage Templates" 
+              index={1} 
+              component={NavLink} 
+              to={`/app/id:${appId}/templates`} 
+              onClick = {() => {handleTabClick('Manage Templates',`/app/id:${appId}/templates`)}}
+            />
+            <Tab 
+              label="Manage Report" 
+              index={2} 
+              component={NavLink} 
+              to={`/app/id:${appId}/reports`} 
+              onClick = {() => {handleTabClick('Manage Report',`/app/id:${appId}/reports`)}}
+            />
+          </Tabs> }
         <Router>
             <Templates path="/templates"/>
             <Reports path="/reports" />

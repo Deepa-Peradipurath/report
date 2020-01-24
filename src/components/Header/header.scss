@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+.sideDrawer{
+    .MuiDrawer-paper {
+        top:89px;
+        height:88%;
+        background-color: $theme-primary-color;
+        .active {
+            color :$text-HightLight-color;
+        }
+    }
+
+}
