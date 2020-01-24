@@ -19,10 +19,10 @@ const CopyPayload = ({ tempID, setShowCopy }) => {
       {/* <Grid container item xs={12} className="content-container"> */}
       <div className="payload-title">Sample Payload</div>
       <Grid container item xs={10} className="payload-sample">
-        {/* <pre>{payLoadData}</pre> */}
-        <TextField  variant="outlined" className="content-input-field" multiline={true} rows={20} >
+        <pre>{payLoadData}</pre>
+        {/* <TextField  variant="outlined" className="content-input-field" multiline={true} rows={20} >
           {payLoadData}
-        </TextField>
+        </TextField> */}
         {/* <TextField id="outlined-basic" variant="outlined" className="content-input-field" multiline={true} rows={20} /> */}
         {/* </Grid> */}
       </Grid>
