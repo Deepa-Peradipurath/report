@@ -2,8 +2,7 @@ import 'date-fns';
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import DatePicker from "react-datepicker"; 
-import "./react-datepicker.css";
-import "./datepicker.scss";
+import "./react-datepicker.scss";
 
 import DateFnsUtils from '@date-io/date-fns';
 import {
