@@ -14,74 +14,74 @@ import Logo from './logo';
 import ProfileInfo from './profileInfo';
 import './appbar.scss';
 
-// const useStyles = makeStyles(theme => ({
-//   grow: {
-//     flexGrow: 1,
-//   },
-//   menuButton: {
-//     marginRight: theme.spacing(2),
-//   },
-//   title: {
-//     display: 'none',
-//     [theme.breakpoints.up('sm')]: {
-//       display: 'block',
-//       color: theme.palette.text.variant1,
-//       fontSize: "1.2rem",
-//       borderLeft:"1px gray solid",
-//       paddingLeft:"15px"
-//     }  
-//   },
-//   search: {
-//     position: 'relative',
-//     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: fade(theme.palette.common.white, 0.15),
-//     '&:hover': {
-//       backgroundColor: fade(theme.palette.common.white, 0.25),
-//     },
-//     marginRight: theme.spacing(2),
-//     marginLeft: 0,
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//       marginLeft: theme.spacing(3),
-//       width: 'auto',
-//     },
-//   },
-//   searchIcon: {
-//     width: theme.spacing(7),
-//     height: '100%',
-//     position: 'absolute',
-//     pointerEvents: 'none',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   inputRoot: {
-//     color: 'inherit',
-//   },
-//   inputInput: {
-//     padding: theme.spacing(1, 1, 1, 7),
-//     transition: theme.transitions.create('width'),
-//     width: '100%',
-//     [theme.breakpoints.up('md')]: {
-//       width: 200,
-//     },
-//   },
-//   sectionDesktop: {
-//     display: 'none',
-//     [theme.breakpoints.up('md')]: {
-//       display: 'flex',
-//     },
-//   },
-//   sectionMobile: {
-//     display: 'flex',
-//     [theme.breakpoints.up('md')]: {
-//       display: 'none',
-//     },
-//   }
-// }));
+const useStyles = makeStyles(theme => ({
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+      color: theme.palette.text.variant1,
+      fontSize: "1.2rem",
+      borderLeft:"1px gray solid",
+      paddingLeft:"15px"
+    }  
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: 200,
+    },
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  }
+}));
 
 const PrimarySearchAppBar = ({siteTitle}) => {
-  //const classes = useStyles();
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -213,7 +213,7 @@ const PrimarySearchAppBar = ({siteTitle}) => {
   //   </div>
   // );
   return(
-    <AppBar position="static" className="AppBar" data-test='AppBar'>
+    <AppBar position="static" className={classes.AppBar} data-test='AppBar'>
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -225,10 +225,10 @@ const PrimarySearchAppBar = ({siteTitle}) => {
           </IconButton> */}
           <Menu/>
           <Logo/>
-          <Typography className="title"  variant="h6" noWrap>
+          <Typography className={classes.title}  variant="h6" noWrap>
             {siteTitle}
           </Typography>
-          <div className='grow' />
+          <div className={classes.grow} />
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -242,10 +242,10 @@ const PrimarySearchAppBar = ({siteTitle}) => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div> */}
-          <div className='sectionDesktop'>
+          <div className={classes.sectionDesktop}>
             <ProfileInfo menuId = {menuId} handleProfileMenuOpen = {handleProfileMenuOpen}/>
           </div>
-          <div className='sectionMobile'>
+          <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
