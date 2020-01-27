@@ -11,12 +11,37 @@ const theme = createMuiTheme({
   palette: {
      primary: {
         light: '#fff',
-        main: 'rgb(15, 54, 84)',
-        dark: '#000'
+        main: '#233B58', // application Primary color
+        dark: '#000',
      },
      secondary: {
-       main: '#f44336',
+       main: '#4FB218', // application Secondary color
      },
+     common :{
+         white :'#fff',
+     },
+     button :{
+        white :'#fff',
+     },
+     text: {
+        primary: "#000000", //text primary color
+        secondary: "#ffffff", //text secondary color
+        highlight : "#3993CE", // highlight text color 
+        variant1 :"#45B6FA" , // blue
+        variant2 :'rgba(0, 0, 0, 0.5)' , // grey
+        variant3 :'rgba(0, 0, 0, 0.2)' , // grey
+    },
+    icons :{
+        primary : "#ffffff",
+        secondary: "#000000",
+        variant1 :"#3993CE" , // blue
+    },
+    background: {
+        default: "#ffffff"
+    },
+    loader : {
+        main: "#45B6FA"
+    }
   },
   typography: { 
      useNextVariants: true
