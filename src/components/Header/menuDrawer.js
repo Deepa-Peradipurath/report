@@ -15,7 +15,7 @@ import actions from "../../store/actions";
 import { useDispatch, useSelector} from "react-redux";
 import { Link } from "gatsby";
 //import Loader from "../Loader";
-import './header.scss';
+
 
 const useStyles = makeStyles(theme => ({
   list: {
