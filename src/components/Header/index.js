@@ -5,7 +5,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import AppBar from './AppBar-old';
+import AppBar from './AppBar';
+import './header.scss';
 
 const useStyles = makeStyles(theme => ({
   grow: {

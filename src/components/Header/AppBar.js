@@ -12,7 +12,6 @@ import Menu from './menuDrawer';
 //custom
 import Logo from './logo';
 import ProfileInfo from './profileInfo';
-import './appbar.scss';
 
 // const useStyles = makeStyles(theme => ({
 //   grow: {
