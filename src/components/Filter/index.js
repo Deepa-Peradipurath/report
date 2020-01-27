@@ -9,7 +9,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import CustomButton from "../Button";
 import DropDown from "../dropDown";
 import actions from "../../store/actions";
-import DatePickerKey from "../datapicker";
+import DatePickerKey from "../datepicker";
 import "./filter.scss";
 
 const Filter = ({
